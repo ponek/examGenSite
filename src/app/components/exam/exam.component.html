@@ -1,0 +1,8 @@
+<div>PEK TEST</div>
+<div *ngIf="exam && exam.length">
+  <h3>Your practice exam is here!</h3>
+  <ul>
+      <li *ngFor="let exam of exams">{{exam.ID}}</li>
+  </ul>    
+</div>
+<div>PEK TEST end</div>
