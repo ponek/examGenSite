@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ExamService} from '../../services/exam.service';
-import {Exam} from './model/exam';
+import {Exam,Question,Option} from './model/exam';
 import {Observable} from 'rxjs/Rx';
 
 
@@ -11,7 +11,11 @@ import {Observable} from 'rxjs/Rx';
 })
 export class ExamComponent implements OnInit {
 
-  exam: Exam;
+  exam: Exam = {
+    id: 'estd',
+    questions: []
+  }
+  
   private model = new Exam([]);
 
   constructor(private examService: ExamService) { }
@@ -21,9 +25,13 @@ export class ExamComponent implements OnInit {
   }
 
   loadExam() {
+    console.log('calling');
     this.examService.getExam()
                       .subscribe(
-                          exam => this.exam = exam, //Bind to view
+                          (exam) => { 
+                            //console.log('gotback: ' + JSON.stringify(exam))
+                            this.exam = exam
+                          }, //Bind to view
                            err => {
                                // Log errors if any
                                console.log(err);
