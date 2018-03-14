@@ -7,6 +7,8 @@ import { tap, catchError, map } from 'rxjs/operators';
 import { Exam,Question,Option } from '../components/exam/model/exam';
 import { MessageService } from './message.service';
 
+import {ExamMock } from '../components/exam/model/mock-exam';
+
 @Injectable()
 export class ExamService {
 
@@ -18,13 +20,15 @@ export class ExamService {
   getExam(): Observable<Exam> {
     this.messageService.add('ExamService: fetched exam');
 
-    var empty : Exam;
+    //For testing without the go server
+    return of (ExamMock);
 
-    return this.http.get<Exam>(this.serviceUrl)
+    //var empty : Exam;
+    /*return this.http.get<Exam>(this.serviceUrl)
       .pipe(
         tap(exam => this.log('fetched exam in tap')),
         catchError(this.handleError('getExam',empty))
-      );
+      );*/
   }
 
   /**
