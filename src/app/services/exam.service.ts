@@ -1,31 +1,53 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Observable } from 'rxjs/Rx';
-import {Exam} from '../components/exam/model/exam';
-import { tap, catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
+import { tap, catchError, map } from 'rxjs/operators';
+import { Exam,Question,Option } from '../components/exam/model/exam';
 import { MessageService } from './message.service';
 
 @Injectable()
 export class ExamService {
 
-  constructor(private http: Http) { }
-
   private serviceUrl = 'http://localhost:9000/exam/generateNewExam';
 
-  public getExam() : Observable<Exam> {
-      return this.http.get(this.serviceUrl)
-        .map((res:Response) => {
-          console.log('resp in service start')
-          console.log(res.json())
-          console.log('resp in service end')
-          res.json()
-        }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-  }  
+  constructor(private http: HttpClient,
+              private messageService: MessageService) { }
 
-  public getEx(): Observable<Exam> {
-    return of(Exam);
+  getExam(): Observable<Exam> {
+    this.messageService.add('ExamService: fetched exam');
+
+    var empty : Exam;
+
+    return this.http.get<Exam>(this.serviceUrl)
+      .pipe(
+        tap(exam => this.log('fetched exam in tap')),
+        catchError(this.handleError('getExam',empty))
+      );
   }
 
+  /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
 
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+  
+  private log(message: string) {
+    this.messageService.add('ExamService: ' + message);
+  }
 }

@@ -1,25 +1,16 @@
 export class Exam {
-    public id: string;
-    
-    constructor(
-        public questions: Question[]
-    ){}
+    id: string;
+    questions: Question[]
 }
 
 export class Question {
-    public id: string;
-
-    constructor(
-        public type: number,
-        public options: Option[]
-    ){}
+    id: string;
+    type: number;
+    options: Option[];
 }
 
 export class Option {
     public id: string;
-
-    constructor(
-        public text: string, 
-        public isAnswer:boolean 
-    ){}
+    public text: string;
+    public isAnswer:boolean;
 }

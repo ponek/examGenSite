@@ -3,7 +3,6 @@ import {ExamService} from '../../services/exam.service';
 import {Exam,Question,Option} from './model/exam';
 import {Observable} from 'rxjs/Rx';
 
-
 @Component({
   selector: 'app-exam',
   templateUrl: './exam.component.html',
@@ -11,31 +10,21 @@ import {Observable} from 'rxjs/Rx';
 })
 export class ExamComponent implements OnInit {
 
-  exam: Exam = {
-    id: 'estd',
-    questions: []
-  }
-  
-  private model = new Exam([]);
+  exam : Exam;
 
   constructor(private examService: ExamService) { }
 
   ngOnInit() {
-    this.loadExam();
+    this.getExam();
   }
 
-  loadExam() {
-    console.log('calling');
+  getExam(): void {
     this.examService.getExam()
-                      .subscribe(
-                          (exam) => { 
-                            //console.log('gotback: ' + JSON.stringify(exam))
-                            this.exam = exam
-                          }, //Bind to view
-                           err => {
-                               // Log errors if any
-                               console.log(err);
-                           });
- }
+      .subscribe(exam => this.exam = exam);
+  }
+
+  getResult(): void {
+    
+  }
 
 }

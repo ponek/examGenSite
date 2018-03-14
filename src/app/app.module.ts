@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ExamComponent } from './components/exam/exam.component';
 import { ExamService } from './services/exam.service';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http'
 import { MessagesComponent } from './components/messages/messages.component';
 import { MessageService } from './services/message.service';
 
@@ -18,9 +19,12 @@ import { MessageService } from './services/message.service';
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    HttpClientModule
   ],
-  providers: [ExamService, MessageService],
+  providers: [
+    ExamService,
+    MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
