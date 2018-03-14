@@ -1,4 +1,15 @@
 <h2>Your practice exam is here!</h2>
 <div><span>id: </span>{{exam.id}}</div>
 
+<ul>
+    <li *ngFor="let question of exam.questions">
+      {{ question.id }}
+      <ul>
+        <li *ngFor="let option of question.options">
+          {{ option.id }}
+        </li>
+    </ul>
+    </li>
+</ul>
+
 <button (click)="getResult()">Show result</button>

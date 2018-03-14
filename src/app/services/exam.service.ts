@@ -21,14 +21,14 @@ export class ExamService {
     this.messageService.add('ExamService: fetched exam');
 
     //For testing without the go server
-    return of (ExamMock);
-
-    //var empty : Exam;
-    /*return this.http.get<Exam>(this.serviceUrl)
+    //return of (ExamMock);
+    
+    var empty : Exam;
+    return this.http.get<Exam>(this.serviceUrl)
       .pipe(
         tap(exam => this.log('fetched exam in tap')),
         catchError(this.handleError('getExam',empty))
-      );*/
+      );
   }
 
   /**
