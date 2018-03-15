@@ -6,11 +6,12 @@ export class Exam {
 export class Question {
     id: string;
     type: number;
+    text: string;
     options: Option[];
 }
 
 export class Option {
-    public id: string;
-    public text: string;
-    public isAnswer:boolean;
+    id: string;
+    text: string;
+    isAnswer: boolean;
 }
