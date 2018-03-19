@@ -12,6 +12,7 @@ export class Question {
 
 export class Option {
     id: string;
+    selected: boolean;
     text: string;
     isAnswer: boolean;
 }

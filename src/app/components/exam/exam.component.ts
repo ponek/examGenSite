@@ -23,8 +23,26 @@ export class ExamComponent implements OnInit {
       .subscribe(exam => this.exam = exam);
   }
 
-  getResult(): void {
-    
+  onSelect(question: Question, option: Option) {
+    if (question.type === 1) {
+      question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; });
+    }
   }
 
+  isAnswered(question: Question) {
+    return question.options.find(x => x.selected) ? 'Answered' : 'Not Answered';
+  };
+
+  isCorrect(question: Question) {
+    return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
+  };
+
+  onSubmit() {
+    let answers = [];
+    /*this.exam.questions.forEach(x => answers.push({ 'id': this.quiz.id, 'questionId': x.id, 'answered': x.answered }));
+
+    // Post your data to the server here. answers contains the questionId and the users' answer.
+    console.log(this.quiz.questions);
+    this.mode = 'result';*/
+  }
 }
