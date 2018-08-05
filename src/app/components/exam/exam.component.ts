@@ -11,6 +11,7 @@ import {Observable} from 'rxjs/Rx';
 export class ExamComponent implements OnInit {
 
   exam : Exam;
+  mode: string = 'quiz';
 
   constructor(private examService: ExamService) { }
 
@@ -20,7 +21,10 @@ export class ExamComponent implements OnInit {
 
   getExam(): void {
     this.examService.getExam()
-      .subscribe(exam => this.exam = exam);
+      .subscribe(exam => 
+        this.exam = exam
+      );
+    this.mode = 'quiz';
   }
 
   onSelect(question: Question, option: Option) {
