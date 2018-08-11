@@ -26,7 +26,19 @@ export class ExamService {
     var empty : Exam;
     return this.http.get<Exam>(this.serviceUrl)
       .pipe(
-        tap(exam => this.log('fetched exam in tap')),
+        //tap(exam => this.log('fetched exam in tap')),
+        map((response) => {
+          
+          response.questions.forEach(quest => {
+            quest.options.forEach(opt => {
+              opt.selected = false;
+            })
+          });
+
+          this.log('fetched exam in map');
+
+          return response;
+        }),
         catchError(this.handleError('getExam',empty))
       );
   }

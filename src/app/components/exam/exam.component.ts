@@ -38,7 +38,28 @@ export class ExamComponent implements OnInit {
   };
 
   isCorrect(question: Question) {
-    return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
+    return question.options.every(x => x.selected == x.isAnswer) ? 'correct' : 'wrong';
+  };
+
+  totalCorrectAnswered() {
+    let correctAnswered: number = 0;
+
+    this.exam.questions.forEach(q => {
+      if(this.isCorrect(q) == 'correct'){
+        correctAnswered++;
+      }
+    });
+
+    return correctAnswered.toString();
+  };
+
+  totalQuestions() {
+    if(this.exam){
+      return this.exam.questions.length;
+    }
+    else {
+      return '0';
+    }
   };
 
   onSubmit() {
@@ -47,6 +68,7 @@ export class ExamComponent implements OnInit {
 
     // Post your data to the server here. answers contains the questionId and the users' answer.
     console.log(this.quiz.questions);
-    this.mode = 'result';*/
+    */
+    this.mode = 'result';
   }
 }

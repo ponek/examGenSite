@@ -1,5 +1,5 @@
 <div>
-  <div *ngIf='mode=="quiz"'>
+  <div *ngIf='mode=="quiz" && exam'>
     <h2>Your practice exam is here!</h2>
     <div *ngFor='let question of exam.questions'>
       <span>{{question.text}}</span>
@@ -24,14 +24,21 @@
             <input id="{{option.id}}" type="checkbox" disabled="disabled" [(ngModel)]="option.selected" /> {{option.text}}
           </div>
         </div>
-        <div>Your answer is {{isCorrect(question)}}.</div>
+        <div style="color: green;" *ngIf="isCorrect(question)=='correct'">
+          <strong>Your answer is {{isCorrect(question)}}.</strong>
+        </div>
+        <div style="color: red;" *ngIf="isCorrect(question)!='correct'">
+          <strong>Your answer is {{isCorrect(question)}}.</strong>
+          <div *ngIf='question.wrongAnswerComment!=""'>{{question.wrongAnswerComment}}</div>
+        </div>
       </div>
+    </div>
+    <div>
+      <strong>Total {{totalCorrectAnswered()}} / {{totalQuestions()}} </strong>
     </div>
   </div>
 
-  </hr>
-
-  <div *ngIf="mode!='result'">
+  <div *ngIf='mode=="quiz" && exam'>
     <button class="btn btn-primary" (click)="onSubmit();">Submit Quiz</button>
   </div>
 </div>
